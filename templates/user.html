@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+
+    <title>{{ username }}</title>
+</head>
+<body>
+    <form method="post" style="text-align: center">
+        <header class="nav justify-content-center">
+            <nav1 class="align-items-center me-md-auto">
+                <input type="submit" value="Выход" name="exit"/>
+            </nav1>
+
+            <nav2>
+                <input type="submit" value="Профиль" name="profile"/>
+                <input type="submit" value="Магазин" name="shop"/>
+                <input type="submit" value="библиотека" name="library"/>
+            </nav2>
+        </header>
+    </form>
+    {% if state == "profile" %}
+        <error style="color:red"> {{ error|string }} </error>
+
+        <panel class="d-flex">
+            <div class="alert alert-dark">
+                <username style="display: inline-block; margin: auto">{{ profile[1]|string }}</username>
+                <password style="display: block; margin: 20px auto">{{ profile[2]|string }}</password>
+                <email style="display: block; margin: 20px auto">{{ profile[3]|string }}</email>
+                {% if profile[4]|string == "None" %}
+                    <phone_number style="display: block; margin: 20px auto">Отсутствует</phone_number>
+                {% else %}
+                    <phone_number style="display: block; margin: 20px auto">{{ profile[4]|string }}</phone_number>
+                {% endif %}
+
+                {% if profile[5]|string == "None" %}
+                    <birth_date style="display: block; margin: auto">Отсутствует</birth_date>
+                {% else %}
+                    <birth_date style="display: block; margin: auto">{{ profile[5]|string }}</birth_date>
+                {% endif %}
+                <waller style="display: block; margin: 20px auto">{{ profile[7]|string }}</waller>
+            </div>
+            <form method="post">
+                <input type="submit" value="Изменить никнейм" name="change username" style="display: block; margin: 15px 0 0 10px"/>
+                <input type="submit" value="Изменить пароль" name="change password" style="display: block; margin: 15px 0 0 10px"/>
+                <input type="submit" value="Изменить адрес электронной почты" name="change email" style="display: block; margin: 15px 0 0 10px"/>
+                <input type="submit" value="Изменить контактный номер телефона" name="change phone_number" style="display: block; margin: 15px 0 0 10px"/>
+                <input type="submit" value="Установить дату рождения" name="change birth_date" style="display: block; margin: 15px 0 0 10px"/>
+                <input type="submit" value="Пополнить кошелек" name="decide fill wallet" style="display: block; margin: 15px 0 0 10px"/>
+            </form>
+        </panel>
+
+        {% if modal == True %}
+            <div class="modal position-static d-block">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header p-5 pb-4 border-bottom-0">
+                            <h1 class="fw-bold mb-0 fs-2" style="display: block; margin: 10px auto">{{ change }}</h1>
+                            <a class="btn-close" href="http://127.0.0.1:5000/user/{{ username }}"></a>
+                        </div>
+
+                        <div class="p-5 pt-0">
+                            <form method="post">
+                                <div class="mb-3">
+                                {% if change == "Никнейм" %}
+                                    <input type="text" value="{{ profile[1]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new value">
+                                {% elif change == "Пароль" %}
+                                    <input type="text" value="{{ profile[2]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new value">
+                                {% elif change == "Адрес электронной почты" %}
+                                    <input type="text" value="{{ profile[3]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new value">
+                                {% elif change == "Номер телефона" %}
+                                    {% if profile[4]|string == "None" %}
+                                        <input type="text" style="display: block; margin: 10px auto; width: 300px" name="new value">
+                                    {% else %}
+                                        <input type="text" value="{{ profile[4]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new value">
+                                    {% endif %}
+                                {% elif change == "Дата рождения" %}
+                                    {% if profile[5]|string == "None" %}
+                                        <input type="text" style="display: block; margin: 10px auto; width: 300px" name="new value">
+                                    {% else %}
+                                        <input type="text" value="{{ profile[5]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new value">
+                                    {% endif %}
+                                {% endif %}
+                                </div>
+                                <input type="submit" value="Установить" name="select {{ change }}" style="display: block; margin: 10px auto"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if wallet == True %}
+            <div class="modal position-static d-block">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header p-5 pb-4 border-bottom-0">
+                            <h1 class="fw-bold mb-0 fs-2" style="display: block; margin: 10px auto">Пополнить кошелек</h1>
+                            <a class="btn-close" href="http://127.0.0.1:5000/user/{{ username }}"></a>
+                        </div>
+
+                        <div class="p-5 pt-0">
+                            <form method="post">
+                                <div class="mb-3">
+                                    <input type="text" style="display: block; margin: 10px auto; width: 300px" name="new value">
+                                </div>
+                                <input type="submit" value="Пополнить" name="fill wallet" style="display: block; margin: 10px auto"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+
+    {% elif state == "shop" %}
+            <form method="post" style="text-align: center">
+                <div style="display: block">
+                    <input type="text" placeholder="Название" style="margin: 10px auto; width: 200px" name="new value 1">
+                    <input type="text" placeholder="Жанр" style="margin: 10px auto; width: 200px" name="new value 2">
+                    Цена от
+                    <input type="text" style="margin: 10px auto; width: 100px" name="new value 3">
+                    до
+                    <input type="text" style="margin: 10px auto; width: 100px" name="new value 4">
+                    <input type="submit" value="Поиск" name="search" style="margin: 10px auto"/>
+                </div>
+            </form>
+
+        {% if empty_games == True %}
+            <error class="d-flex justify-content-center" style="color: red; display: block">Нет продуктов, удовлетворяющих условиям</error>
+        {% endif %}
+
+        <shop class="d-flex justify-content-center">
+            <list class="list-group">
+            {% for game in games %}
+                <div class="alert alert-dark">
+                    <a href="http://127.0.0.1:5000/user/{{ username }}/buy_game/{{ game[0] }}/" style="text-decoration: none; color:black">
+                        <name style="display: block">{{ game[1]|string }}</name>
+                    </a>
+                    <div style="float: left">
+                        <genre>Жанр: {{ game[3]|string }}</genre>
+                    </div>
+                    <div style="float: right">
+                        <price>Стоимость: {{ game[2]|string }}</price>
+                    </div>
+                </div>
+            {% endfor %}
+            </list>
+        </shop>
+    {% elif state == "library" %}
+        <library class="d-flex justify-content-center">
+            <list class="list-group">
+            {% for game in library %}
+                <div class="alert alert-dark">
+                    <div>
+                        <name style="display: block">{{ game[1]|string }}</name>
+                    </div>
+                    <a href="http://127.0.0.1:5000/refund/{{ username }}/{{ game[0]|string }}/" style="text-decoration: none; color:black">
+                        <input type="submit" value="Оформить возврат" name="refund" style="display: block; margin: 10px 0 0 10px"/>
+                    </a>
+                </div>
+            {% endfor %}
+            </list>
+        </library>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <title>{{ name }}</title>
+</head>
+<body>
+    <form method="post" style="text-align: center">
+        <header class="nav justify-content-center">
+            <nav1 class="align-items-center me-md-auto">
+                <input type="submit" value="Выход" name="exit"/>
+            </nav1>
+        </header>
+    </form>
+
+    {% if age == True %}
+        <error class="d-flex justify-content-center" style="color: red; display: block">Ваша дата рождения не соотвуетствует возрастному рейтингу продукта</error>
+    {% endif %}
+
+    {% if price == True %}
+        <error class="d-flex justify-content-center" style="color: red; display: block">На вашем кошельке недостаточно средств</error>
+    {% endif %}
+
+    <panel class="d-flex justify-content-center" style="margin: auto">
+        <div class="alert alert-dark" style="width: 600px">
+            <div style="float: left">
+                <name>{{ game[1]|string }}</name>
+            </div>
+            <div style="float: right">
+                <publisher>Издатель: {{ publisher }}</publisher>
+            </div>
+            <div style="clear: both"></div>
+            <div style="float: left">
+                <genre>Жанр: {{ game[3]|string }}</genre>
+            </div>
+            <div style="float: right">
+                <age_rating>Возрастное ограничение: {{ game[4]|string }}</age_rating>
+            </div>
+            <div style="clear: both"></div>
+            <price style="display: block">Стоимость: {{ game[2]|string }}</price>
+            {% if purchased == 0 %}
+                <form method="post">
+                    <input type="submit" value="Приобрести" name="purchase" style="display: block"/>
+                </form>
+            {% endif %}
+        </div>
+    </panel>
+</body>
+</html>

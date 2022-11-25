@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <title>Admin</title>
+</head>
+<body>
+    <form method="post" style="text-align: center">
+        <header class="nav justify-content-center">
+            <nav class="align-items-center me-md-auto">
+                <input type="submit" value="Выход" name="exit"/>
+            </nav>
+        </header>
+    </form>
+
+    <div style="text-align: center">
+        <error style="color:red">{{ error|string }}</error>
+    </div>
+
+    <tables class="d-flex justify-content-center" style="margin: auto">
+        <div class="alert alert-dark">
+            <div class="fw-bold" style="display: block">
+                <table_name>Таблица: {{ table_rus }}</table_name>
+            </div>
+        {% if table_name == "employee" %}
+            <div style="display: block">
+                <id>Идентификатор: {{ table[id][0]|string }}</id>
+            </div>
+            <div style="display: block">
+                <position_id>Идентификатор должности: {{ table[id][1]|string }}</position_id>
+            </div>
+            <div style="display: block">
+                <name>Имя: {{ table[id][2]|string }}</name>
+            </div>
+            <div style="display: block">
+                <surname>Фамилия: {{ table[id][3]|string }}</surname>
+            </div>
+            <div style="display: block">
+                <patronymic>Отчество: {{ table[id][4]|string }}</patronymic>
+            </div>
+        {% elif table_name == "game" %}
+            <div style="display: block">
+                <id>Идентификатор: {{ table[id][0]|string }}</id>
+            </div>
+            <div style="display: block">
+                <name>Название: {{ table[id][1]|string }}</name>
+            </div>
+            <div style="display: block">
+                <price>Стоимость: {{ table[id][2]|string }}</price>
+            </div>
+            <div style="display: block">
+                <genre>Жанр: {{ table[id][3]|string }}</genre>
+            </div>
+            <div style="display: block">
+                <age_rating>Возрастное ограничение: {{ table[id][4]|string }}</age_rating>
+            </div>
+            <div style="display: block">
+                <publisher_id>Идентификатор издателя: {{ table[id][5]|string }}</publisher_id>
+            </div>
+        {% elif table_name == "library" %}
+            <div style="display: block">
+                <id>Идентификатор: {{ table[id][0]|string }}</id>
+            </div>
+            <div style="display: block">
+                <user_id>Идентификатор пользователя: {{ table[id][1]|string }}</user_id>
+            </div>
+            <div style="display: block">
+                <game_id>Идентификатор игры: {{ table[id][2]|string }}</game_id>
+            </div>
+        {% elif table_name == "position" %}
+            <div style="display: block">
+                <id>Идентификатор: {{ table[id][0]|string }}</id>
+            </div>
+            <div style="display: block">
+                <name>Название: {{ table[id][1]|string }}</name>
+            </div>
+            <div style="display: block">
+                <salary>Заработная плата: {{ table[id][2]|string }}</salary>
+            </div>
+        {% elif table_name == "publisher" %}
+            <div style="display: block">
+                <id>Идентификатор: {{ table[id][0]|string }}</id>
+            </div>
+            <div style="display: block">
+                <name>Название: {{ table[id][1]|string }}</name>
+            </div>
+            <div style="display: block">
+                <interest_rate>Процентная ставка: {{ table[id][2]|string }}</interest_rate>
+            </div>
+        {% elif table_name == "refund" %}
+            <div style="display: block">
+                <id>Идентификатор: {{ table[id][0]|string }}</id>
+            </div>
+            <div style="display: block">
+                <employee_id>Идентификатор сотрудника: {{ table[id][1]|string }}</employee_id>
+            </div>
+            <div style="display: block">
+                <refund_datetime>Время возврата: {{ table[id][2]|string }}</refund_datetime>
+            </div>
+        {% elif table_name == "sell" %}
+            <div style="display: block">
+                <id>Идентификатор: {{ table[id][0]|string }}</id>
+            </div>
+            <div style="display: block">
+                <user_id>Идентификатор пользователя: {{ table[id][1]|string }}</user_id>
+            </div>
+            <div style="display: block">
+                <game_id>Идентификатор игры: {{ table[id][2]|string }}</game_id>
+            </div>
+            <div style="display: block">
+                <deal_datetime>Время покупки: {{ table[id][3]|string }}</deal_datetime>
+            </div>
+            <div style="display: block">
+                <payment_method>Способ оплаты: {{ table[id][4]|string }}</payment_method>
+            </div>
+        {% elif table_name == "user" %}
+            <div style="display: block">
+                <id>Идентификатор: {{ table[id][0]|string }}</id>
+            </div>
+            <div style="display: block">
+                <username>Имя пользователя: {{ table[id][1]|string }}</username>
+            </div>
+            <div style="display: block">
+                <email>Адрес электронной почты: {{ table[id][3]|string }}</email>
+            </div>
+            <div style="display: block">
+                <phine_number>Номер телефона: {{ table[id][4]|string }}</phine_number>
+            </div>
+            <div style="display: block">
+                <birth_date>Дата рождения: {{ table[id][5]|string }}</birth_date>
+            </div>
+            <div style="display: block">
+                <admin>Является админом: {{ table[id][6]|string }}</admin>
+            </div>
+        {% endif %}
+            <form method="post" style="text-align: center">
+                <input type="submit" value="Удалить запись" name="delete"/>
+                {% if table_name != "library" and table_name != "sell" and table_name != "refund" and table_name != "user"%}
+                    <input type="submit" value="Изменить запись" name="change"/>
+                {% endif %}
+            </form>
+        </div>
+    </tables>
+
+    {% if change == True %}
+        <div class="modal position-static d-block">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <a class="btn-close" href="http://127.0.0.1:5000/admin/{{ table_name }}/{{ id+1 }}/"></a>
+                    </div>
+
+                    <div class="p-5 pt-0">
+                        <form method="post">
+                            <div class="mb-3">
+                            {% if table_name == "employee" %}
+                                <input type="text" value="{{ table[id][1]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 1">
+                                <input type="text" value="{{ table[id][2]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 2">
+                                <input type="text" value="{{ table[id][3]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 3">
+                                <input type="text" value="{{ table[id][4]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 4">
+                            {% elif table_name == "game" %}
+                                <input type="text" value="{{ table[id][1]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 1">
+                                <input type="text" value="{{ table[id][2]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 2">
+                                <input type="text" value="{{ table[id][3]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 3">
+                                <input type="text" value="{{ table[id][4]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 4">
+                                <input type="text" value="{{ table[id][5]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 5">
+                            {% elif table_name == "position" %}
+                                <input type="text" value="{{ table[id][1]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 1">
+                                <input type="text" value="{{ table[id][2]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 2">
+                            {% elif table_name == "publisher" %}
+                                <input type="text" value="{{ table[id][1]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 1">
+                                <input type="text" value="{{ table[id][2]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 2">
+                            {% elif table_name == "user" %}
+                                <input type="text" value="{{ table[id][1]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 1">
+                                <input type="text" value="{{ table[id][2]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 2">
+                                <input type="text" value="{{ table[id][3]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 3">
+                                <input type="text" value="{{ table[id][4]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 4">
+                                <input type="text" value="{{ table[id][5]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 5">
+                                <input type="text" value="{{ table[id][6]|string }}" style="display: block; margin: 10px auto; width: 300px" name="new 6">
+                            {% endif %}
+                            </div>
+                            <input type="submit" value="Установить" name="confirm change" style="display: block; margin: 10px auto"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</body>
+</html>

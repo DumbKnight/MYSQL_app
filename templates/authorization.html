@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <title>Авторизация</title>
+</head>
+<body>
+    <acces_title class="d-flex justify-content-center" style="margin: auto">
+        <h1>{{ title }}</h1>
+    </acces_title>
+    <access class="d-flex justify-content-center" style="margin: auto">
+        <list class="list-group" style="display: block;">
+        {% if Previous_attempt == False %}
+            <error style="color:red">Пожалуйста, проверьте введенные данные и попробуйте снова.</error>
+        {% endif %}
+        {% if state == "login" %}
+            <form method="post" style="text-align: center">
+                <input type="text" name="username" id="username" placeholder="Имя пользователя" value="" style="width: 250px; display: block; margin: 10px auto">
+                <input type="text" name="password" id="password" placeholder="Пароль" value="" style="width: 250px; display: block; margin: 10px auto">
+                <input type="submit" value="Войти" name="log_user" style="margin: 10px auto"/>
+                <input type="submit" value="Зарегистрироваться" name="reg_user_change" style="margin: 10px auto"/>
+            </form>
+        {% else %}
+            <form method="post" style="text-align: center">
+                <input type="text" name="username_reg" id="username_reg" placeholder="Имя пользователя" value="" style="width: 250px; display: block; margin: 10px auto">
+                <input type="text" name="password_reg" id="password_reg" placeholder="Пароль" value="" style="width: 250px; display: block; margin: 10px auto">
+                <input type="text" name="email_reg" id="email_reg" placeholder="Адрес электронной почты" value="" style="width: 250px; display: block; margin: 10px auto">
+                <input type="submit" value="Войти" name="log_user_change" style="margin: 10px auto"/>
+                <input type="submit" value="Зарегистрироваться" name="reg_user" style="margin: 10px auto"/>
+            </form>
+        {% endif %}
+        </list>
+    </access>
+</body>
+</html>

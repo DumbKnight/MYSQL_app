@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <title>Admin</title>
+</head>
+<body>
+    <form method="post" style="text-align: center">
+        <header class="nav justify-content-center">
+            <nav1 class="align-items-center me-md-auto">
+                <input type="submit" value="Выход" name="exit"/>
+            </nav1>
+
+            <nav2>
+            {% for i in size %}
+                <input type="submit" value="{{ tables_list_rus[i][0]|string }}" name="{{ tables_list[i][0]|string }}"/>
+            {% endfor %}
+            </nav2>
+        </header>
+    </form>
+
+    {% if chosed_table != "library" and chosed_table != "sell" and chosed_table != "refund" and chosed_table != "user"%}
+    <div class="d-flex justify-content-center">
+        <a href="http://127.0.0.1:5000/admin/{{ chosed_table }}/add/">
+            <input type="submit" value="Добавить" name=""/>
+        </a>
+    </div>
+    {% endif %}
+
+    {% if modal == True %}
+        <div class="modal position-static d-block">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <a class="btn-close" href="http://127.0.0.1:5000/admin/{{ table_name }}/{{ id+1 }}/"></a>
+                    </div>
+
+                    <div class="p-5 pt-0">
+                        <form method="post">
+                            <div class="mb-3">
+                            {% if chosed_table == "employee" %}
+                                <input type="text" value="" style="display: block; margin: 10px auto; width: 300px" name="new 1">
+                                <input type="text" value="" style="display: block; margin: 10px auto; width: 300px" name="new 2">
+                                <input type="text" value="" style="display: block; margin: 10px auto; width: 300px" name="new 3">
+                                <input type="text" value="" style="display: block; margin: 10px auto; width: 300px" name="new 4">
+                            {% elif chosed_table == "game" %}
+                            {% elif chosed_table == "library" %}
+                            {% elif chosed_table == "position" %}
+                            {% elif chosed_table == "publisher" %}
+                            {% elif chosed_table == "refund" %}
+                            {% elif chosed_table == "sell" %}
+                            {% elif chosed_table == "user" %}
+                            {% endif %}
+                            </div>
+                            <input type="submit" value="Установить" name="confirm change" style="display: block; margin: 10px auto"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <tables class="d-flex justify-content-center">
+        <list class="list-group" style="margin: 30px 0 0 0">
+        {% for row in list %}
+            <a href="http://127.0.0.1:5000/admin/{{ chosed_table }}/{{ row[0]|string }}/" style="text-decoration: none; color:black">
+                <div class="alert alert-dark">
+                {% if chosed_table == "employee" %}
+                    <div style="display: block">
+                        <name>{{ row[3]|string }} {{ row[2]|string }} {% if row[4]|string != "None" or row[4]|string != "" %} {{ row[4]|string }} {% endif %}</name>
+                    </div>
+                    <div style="display: block">
+                        <postition>Должность: {{ row[1]|string }}</postition>
+                    </div>
+                {% elif chosed_table == "game" %}
+                    <div style="display: block">
+                        <name>{{ row[1]|string }}</name>
+                    </div>
+                    <div style="display: block">
+                        <price>Цена: {{ row[2]|string }}</price>
+                    </div>
+                    <div style="display: block">
+                        <genre>Жанр: {{ row[3]|string }}</genre>
+                    </div>
+                    <div style="display: block">
+                        <age_rating>Возрастное ограничение: {{ row[4]|string }}</age_rating>
+                    </div>
+                    <div style="display: block">
+                        <publisher>Издатель: {{ row[5]|string }}</publisher>
+                    </div>
+                {% elif chosed_table == "library" %}
+                    <div style="display: block">
+                        <user>Пользователь: {{ row[1]|string }}</user>
+                    </div>
+                    <div style="display: block">
+                        <game>Игра: {{ row[2]|string }}</game>
+                    </div>
+                {% elif chosed_table == "position" %}
+                    <div style="display: block">
+                        <position_name>{{ row[1]|string }}</position_name>
+                    </div>
+                    <div style="display: block">
+                        <salary>Заработная плата: {{ row[2]|string }}</salary>
+                    </div>
+                {% elif chosed_table == "publisher" %}
+                    <div style="display: block">
+                        <name>{{ row[1]|string }}</name>
+                    </div>
+                    <div style="display: block">
+                        <interest_rate>Процентная ставка: {{ row[2]|string }}</interest_rate>
+                    </div>
+                {% elif chosed_table == "refund" %}
+                    <div style="display: block">
+                        <game>Пользователь {{ row[3]|string }}</game>
+                    </div>
+                    <div style="display: block">
+                        <employee>Оформил: {{ row[1]|string }}</employee>
+                    </div>
+                    <div style="display: block">
+                        <refund_date>Время: {{ row[2]|string }}</refund_date>
+                    </div>
+                {% elif chosed_table == "sell" %}
+                    <div style="display: block">
+                        <user>Пользователь: {{ row[1]|string }}</user>
+                    </div>
+                    <div style="display: block">
+                        <game>Игра: {{ row[2]|string }}</game>
+                    </div>
+                    <div style="display: block">
+                        <deal_datetime>Время покупки: {{ row[3]|string }}</deal_datetime>
+                    </div>
+                    <div style="display: block">
+                        <payment_method>Способ оплаты: {{ row[4]|string }}</payment_method>
+                    </div>
+                {% elif chosed_table == "user" %}
+                    <div style="display: block">
+                        <username>Имя пользователя: {{ row[1]|string }}</username>
+                    </div>
+                    <div style="display: block">
+                        <email>Адрес электронной почты: {{ row[3]|string }}</email>
+                    </div>
+                    <div style="display: block">
+                        <phone_number>Номер телефона: {{ row[4]|string }}</phone_number>
+                    </div>
+                    <div style="display: block">
+                        <birth_date>Дата рождения: {{ row[5]|string }}</birth_date>
+                    </div>
+                    <div style="display: block">
+                        <admin>Является админом: {{ row[6]|string }}</admin>
+                    </div>
+                {% endif %}
+                </div>
+            </a>
+        {% endfor %}
+        </list>
+    </tables>
+</body>
+</html>
